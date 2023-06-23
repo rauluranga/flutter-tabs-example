@@ -37,7 +37,17 @@ class _MainScreenState extends State<MainScreen>
     return Scaffold(
       body: TabBarView(
         controller: _tabController,
-        children: tabs,
+        children: tabs.map((Widget tab) {
+          return Navigator(
+            key: UniqueKey(),
+            onGenerateRoute: (RouteSettings settings) {
+              return MaterialPageRoute(
+                settings: settings,
+                builder: (_) => tab,
+              );
+            },
+          );
+        }).toList(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
